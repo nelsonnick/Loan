@@ -1,0 +1,5 @@
+# config
+jdbcUrl = jdbc:mysql://localhost/loan?characterEncoding=utf8&useSSL=false&zeroDateTimeBehavior=convertToNull
+user = root
+password = root
+devMode = false
