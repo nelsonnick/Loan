@@ -89,6 +89,12 @@ public class LoanController extends Controller {
     }
     @Before({Tx.class, LoginInterceptor.class})
     public void del() {
+        Change change = new Change();
+        change.set("loan_id",getParaToInt("id"))
+                .set("user_id",((User) getSessionAttr("user")).getId())
+                .set("before",loanService.findById(getParaToInt("id")))
+                .set("after","")
+                .set("time",new Date()).save();
         loanService.del(getParaToInt("id"));
         renderText("OK");
     }
