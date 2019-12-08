@@ -152,6 +152,7 @@
 				<version>2.6</version>
 				<configuration>
 					<excludes>
+						<exclude>**/node_modules/**</exclude>
 						<!-- **/* 前缀用法，可以匹配所有路径，例如：**/*.txt -->
 						<exclude>*.txt</exclude>
 						<exclude>*.xml</exclude>

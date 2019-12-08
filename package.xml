@@ -39,6 +39,7 @@
 				<!-- **/* 前缀用法，可以匹配所有路径，例如：**/*.txt -->
 				<exclude>WEB-INF</exclude>
 				<exclude>WEB-INF/web.xml</exclude>
+				<exclude>**/node_modules/**</exclude>
 			</excludes>
 		</fileSet>
 		

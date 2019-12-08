@@ -47,4 +47,32 @@ public class StatisticsController extends Controller {
         setAttr("money", money);
         render("/print/Statistics.html");
     }
+
+    public  void getCount(){
+        String [][][]count=new String[19][21][6];
+        for (int i = 0; i < count.length; i++) {
+            for (int j = 0; j < count[i].length; j++) {
+                for (int k = 0; k < count[i][j].length; k++) {
+                    count[i][j][k] = loanService.count(i, j, k);
+                }
+            }
+        }
+        renderJson(count);
+    }
+
+    public  void getMoney(){
+        String [][][]money=new String[19][21][6];
+        for (int i = 0; i < money.length; i++) {
+            for (int j = 0; j < money[i].length; j++) {
+                for (int k = 0; k < money[i][j].length; k++) {
+                    money[i][j][k] = loanService.money(i, j, k);
+                }
+            }
+        }
+        renderJson(money);
+    }
+
+    public void getDepartment(){
+        renderJson(departmentService.getAll());
+    }
 }

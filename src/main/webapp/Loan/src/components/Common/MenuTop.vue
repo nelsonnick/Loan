@@ -14,7 +14,7 @@
         <Icon type="md-add-circle"></Icon>
         新增贷款
       </MenuItem>
-      <MenuItem name="Statistics" v-cloak>
+      <MenuItem name="Statistics"  to="/" v-cloak>
         <Icon type="md-pie"></Icon>
         数据统计
       </MenuItem>
@@ -76,9 +76,9 @@ export default {
       if (name.toString() === 'Exit') {
         window.location.href = '/logout'
       }
-      if (name.toString() === 'Statistics') {
-        window.open('/statistics/get')
-      }
+      // if (name.toString() === 'Statistics') {
+      //   window.open('/statistics/get')
+      // }
     }
   }
 }
