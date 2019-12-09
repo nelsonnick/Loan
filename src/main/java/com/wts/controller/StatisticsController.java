@@ -26,8 +26,9 @@ public class StatisticsController extends Controller {
     @Inject
     TypeService typeService;
     public void get() {
+        Integer n =  departmentService.getAll().size() + 1;
         setAttr("departmentList", departmentService.getAll());
-        String [][][]count=new String[19][21][6];
+        String [][][]count=new String[n][21][6];
         for (int i = 0; i < count.length; i++) {
             for (int j = 0; j < count[i].length; j++) {
                 for (int k = 0; k < count[i][j].length; k++) {
@@ -35,7 +36,7 @@ public class StatisticsController extends Controller {
                 }
             }
         }
-        String [][][]money=new String[19][21][6];
+        String [][][]money=new String[n][21][6];
         for (int i = 0; i < money.length; i++) {
             for (int j = 0; j < money[i].length; j++) {
                 for (int k = 0; k < money[i][j].length; k++) {
@@ -48,8 +49,9 @@ public class StatisticsController extends Controller {
         render("/print/Statistics.html");
     }
 
-    public  void getCount(){
-        String [][][]count=new String[19][21][6];
+    public void getCount(){
+        Integer n =  departmentService.getAll().size() + 1;
+        String [][][]count=new String[n][21][6];
         for (int i = 0; i < count.length; i++) {
             for (int j = 0; j < count[i].length; j++) {
                 for (int k = 0; k < count[i][j].length; k++) {
@@ -60,8 +62,9 @@ public class StatisticsController extends Controller {
         renderJson(count);
     }
 
-    public  void getMoney(){
-        String [][][]money=new String[19][21][6];
+    public void getMoney(){
+        Integer n =  departmentService.getAll().size() + 1;
+        String [][][]money=new String[n][21][6];
         for (int i = 0; i < money.length; i++) {
             for (int j = 0; j < money[i].length; j++) {
                 for (int k = 0; k < money[i][j].length; k++) {

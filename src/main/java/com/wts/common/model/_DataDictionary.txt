@@ -51,6 +51,9 @@ Table: loan
  spouse        | VARCHAR(25)  | YES  |     |         | 配偶姓名    
  phone2        | VARCHAR(50)  | YES  |     |         | 配偶电话    
  remark        | VARCHAR(999) | YES  |     |         | 备注      
+ code          | VARCHAR(50)  | YES  |     |         | 客户编号    
+ startTime     | INT(10)      | YES  |     |         | 贷款开始时间  
+ endTime       | INT(10)      | YES  |     |         | 贷款终止时间  
 ---------------+--------------+------+-----+---------+---------
 
 Table: type
@@ -67,8 +70,8 @@ Table: user
 ----------+-------------+------+-----+---------+---------
  id       | INT(10)     | NO   | PRI |         | 序号      
  name     | VARCHAR(50) | YES  |     |         | 姓名      
+ login    | VARCHAR(50) | YES  |     |         | 用户名     
  password | VARCHAR(50) | YES  |     |         | 用户密码    
  state    | INT(10)     | YES  |     |         | 状态0注销1激活
- login    | VARCHAR(50) | YES  |     |         | 用户名     
 ----------+-------------+------+-----+---------+---------
 

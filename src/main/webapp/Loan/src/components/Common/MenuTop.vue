@@ -2,7 +2,7 @@
   <Menu mode="horizontal" theme="dark" :active-name="menuTop" @on-select="onSelect">
     <div class="layout-logo"></div>
     <div class="layout-nav">
-      <MenuItem name="Main" to="/Main">
+      <MenuItem name="Main" to="/">
         <Icon type="md-contact"></Icon>
         当前用户：{{name}}
       </MenuItem>
@@ -14,7 +14,7 @@
         <Icon type="md-add-circle"></Icon>
         新增贷款
       </MenuItem>
-      <MenuItem name="Statistics"  to="/" v-cloak>
+      <MenuItem name="Statistics" v-cloak>
         <Icon type="md-pie"></Icon>
         数据统计
       </MenuItem>
@@ -76,9 +76,9 @@ export default {
       if (name.toString() === 'Exit') {
         window.location.href = '/logout'
       }
-      // if (name.toString() === 'Statistics') {
-      //   window.open('/statistics/get')
-      // }
+      if (name.toString() === 'Statistics') {
+        window.open('/statistics/get')
+      }
     }
   }
 }

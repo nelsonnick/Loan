@@ -324,4 +324,49 @@ public abstract class BaseLoan<M extends BaseLoan<M>> extends Model<M> implement
 		return getStr("remark");
 	}
 
+	/**
+	 * 客户编号
+	 */
+	public M setCode(java.lang.String code) {
+		set("code", code);
+		return (M)this;
+	}
+	
+	/**
+	 * 客户编号
+	 */
+	public java.lang.String getCode() {
+		return getStr("code");
+	}
+
+	/**
+	 * 贷款开始时间
+	 */
+	public M setStartTime(java.lang.Integer startTime) {
+		set("startTime", startTime);
+		return (M)this;
+	}
+	
+	/**
+	 * 贷款开始时间
+	 */
+	public java.lang.Integer getStartTime() {
+		return getInt("startTime");
+	}
+
+	/**
+	 * 贷款终止时间
+	 */
+	public M setEndTime(java.lang.Integer endTime) {
+		set("endTime", endTime);
+		return (M)this;
+	}
+	
+	/**
+	 * 贷款终止时间
+	 */
+	public java.lang.Integer getEndTime() {
+		return getInt("endTime");
+	}
+
 }

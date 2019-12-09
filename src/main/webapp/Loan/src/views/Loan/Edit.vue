@@ -32,12 +32,12 @@
           </Col>
           <Col span="8">
             <FormItem label="配偶姓名" prop="spouse">
-              <Input type="text" v-model="formValidate.spouse" placeholder="请输入配偶姓名" :maxlength="20" clearable></Input>
+              <Input type="text" v-model="formValidate.spouse" placeholder="请输入配偶姓名" :maxlength="20" clearable :disabled="marr"></Input>
             </FormItem>
           </Col>
           <Col span="8">
             <FormItem label="配偶电话" prop="phone2">
-              <Input v-model="formValidate.phone2" placeholder="请输入11位手机号码" :maxlength="11" show-word-limit clearable></Input>
+              <Input v-model="formValidate.phone2" placeholder="请输入11位手机号码" :maxlength="11" show-word-limit clearable :disabled="marr"></Input>
             </FormItem>
           </Col>
         </Row>
@@ -82,7 +82,7 @@
                 <Option value="2">被退回</Option>
                 <Option value="3">已审批</Option>
                 <Option value="4">已放款</Option>
-                <Option value="5">已回款</Option>
+                <Option value="5">已还款</Option>
               </Select>
             </FormItem>
           </Col>
@@ -124,19 +124,19 @@
         </Row>
         <Row>
           <Col span="8">
-            &nbsp;<FormItem label="客户编号" prop="code">
-            <Input v-model="formValidate.code" placeholder="请输入8位客户编号" maxlength="8" type="number" clearable number/>
-          </FormItem>
-          </Col>
-          <Col span="8">
-            <FormItem label="开始日期" prop="startTime">
-              <Input v-model="formValidate.startTime" placeholder="请输入8位贷款开始日期" maxlength="8" type="number" clearable number/>
+            <FormItem label="客户编号" prop="code">
+              <Input v-model="formValidate.code" placeholder="请输入8位客户编号" maxlength="8" type="number" clearable number :disabled="stat"/>
             </FormItem>
           </Col>
           <Col span="8">
-            &nbsp;<FormItem label="结束日期" prop="endTime">
-            <Input v-model="formValidate.endTime" placeholder="请输入8位贷款终止日期" maxlength="8" type="number" clearable number/>
-          </FormItem>
+            <FormItem label="开始日期" prop="startTime">
+              <Input v-model="formValidate.startTime" placeholder="请输入8位贷款开始日期" maxlength="8" type="number" clearable number :disabled="stat"/>
+            </FormItem>
+          </Col>
+          <Col span="8">
+            <FormItem label="结束日期" prop="endTime">
+              <Input v-model="formValidate.endTime" placeholder="请输入8位贷款终止日期" maxlength="8" type="number" clearable number :disabled="stat"/>
+            </FormItem>
           </Col>
         </Row>
         <Row>
@@ -212,6 +212,8 @@ export default {
     }
     return {
       dis: false,
+      marr: true,
+      stat:true,
       askDeleteModal: false,
       formValidate: {
         name: '',
@@ -288,9 +290,36 @@ export default {
     this.typeList = this.evil('(' + localStorage.getItem("typeList") + ')')
     this.fetchData(this.$route.params.id)
   },
+  computed: {
+    marriageChange() {
+      return this.formValidate.marriage;
+    },
+    stateChange() {
+      return this.formValidate.state;
+    }
+  },
   watch: {
     // 如果路由有变化，会再次执行该方法
-    '$route': 'fetchData'
+    '$route': 'fetchData',
+    marriageChange(val) {
+      if (val == 2) {
+        this.marr = false
+      } else {
+        this.marr = true
+        this.formValidate.spouse = ''
+        this.formValidate.phone2 = ''
+      }
+    },
+    stateChange(val) {
+      if (val == 4) {
+        this.stat = false
+      } else {
+        this.stat = true
+        this.formValidate.code = ''
+        this.formValidate.startTime = ''
+        this.formValidate.endTime = ''
+      }
+    }
   },
   methods: {
     // 一个变量指向Function，防止有些前端编译工具报错

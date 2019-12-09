@@ -20,28 +20,29 @@ public class LoanService {
         String stateSql = "";
         String moneySql="";
         String monthSql = "";
-        if (!queryStr.get("department_id").equals("")){
+        if (!queryStr.getString("department_id").equals("")){
             departmentSql = " AND department.id = '" + queryStr.get("department_id") + "' ";
         }
-        if (!queryStr.get("bank_id").equals("")){
-            bankSql = " AND bank.id = '" + queryStr.get("bank") + "' ";
+        if (!queryStr.getString("bank_id").equals("")){
+            bankSql = " AND bank.id = '" + queryStr.get("bank_id") + "' ";
         }
-        if (!queryStr.get("type_id").equals("")){
+        if (!queryStr.getString("type_id").equals("")){
             typeSql = " AND type.id = '" + queryStr.get("type_id") + "' ";
         }
-        if (!queryStr.get("state").equals("")){
+        if (!queryStr.getString("state").equals("")){
             stateSql = " AND loan.state = '" + queryStr.get("state") + "' ";
         }
-        if (!queryStr.get("money").equals("")){
+        if (!queryStr.getString("money").equals("")){
             moneySql = " AND loan.money = '" + queryStr.get("money") + "' ";
         }
-        if (!queryStr.get("month").equals("")){
+        if (!queryStr.getString("month").equals("")){
             monthSql = " AND loan.month = '" + queryStr.get("month") + "' ";
         }
         return "WHERE " +
                 "loan.name LIKE '%" + queryStr.get("name") + "%' " +
                 "AND loan.number LIKE '%" +  queryStr.get("number") + "%' " +
                 "AND loan.business LIKE '%" +  queryStr.get("business") + "%' " +
+                "AND loan.phone LIKE '%" +  queryStr.get("phone") + "%' " +
         departmentSql + bankSql + typeSql + stateSql + moneySql + monthSql;
     }
 
@@ -54,7 +55,7 @@ public class LoanService {
                 "bank.name AS bank, type.name AS type, department.name AS department, " +
                 "CASE loan.sex WHEN '0' THEN '未知' WHEN '1' THEN '男' WHEN '2' THEN '女' ELSE '性别错误' END AS sex," +
                 "CASE loan.marriage WHEN '1' THEN '未婚' WHEN '2' THEN '已婚' WHEN '3' THEN '离异' WHEN '4' THEN '丧偶' ELSE '婚姻错误' END AS marriage," +
-                "CASE loan.state WHEN '0' THEN '未处理' WHEN '1' THEN '被退回' WHEN '2' THEN '已审批' WHEN '3' THEN '已放款' WHEN '4' THEN '已回款' ELSE '状态错误' END AS state ";
+                "CASE loan.state WHEN '1' THEN '未处理' WHEN '2' THEN '被退回' WHEN '3' THEN '已审批' WHEN '4' THEN '已放款' WHEN '5' THEN '已还款' ELSE '状态错误' END AS state ";
     }
 
     public Loan getLoanByFrom(String json) {

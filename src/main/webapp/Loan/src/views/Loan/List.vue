@@ -2,31 +2,31 @@
   <div>
     <Row :style="{margin: '5px 1px 0px 1px'}">
       <Col span="4">
-        <Select v-model="queryStr.department_id" placeholder="请选择所属部门" prefix="md-easel" clearable="true">
+        <Select v-model="queryStr.department_id" placeholder="请选择所属部门" prefix="md-easel">
           <Option v-for="item in departmentList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
       </Col>
       <Col span="4">
-        <Select v-model="queryStr.bank_id" placeholder="请选择放款银行" prefix="md-cube" clearable="true">
+        <Select v-model="queryStr.bank_id" placeholder="请选择放款银行" prefix="md-cube">
           <Option v-for="item in bankList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
       </Col>
       <Col span="4">
-        <Select v-model="queryStr.type_id" placeholder="请选择申请类型" prefix="md-swap" clearable="true">
+        <Select v-model="queryStr.type_id" placeholder="请选择申请类型" prefix="md-swap">
           <Option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
       </Col>
       <Col span="4">
-        <Select v-model="queryStr.state" placeholder="请选择贷款状态" prefix="ios-bookmark" clearable="true">
+        <Select v-model="queryStr.state" placeholder="请选择贷款状态" prefix="ios-bookmark">
           <Option value="1">未处理</Option>
           <Option value="2">被退回</Option>
           <Option value="3">已审批</Option>
           <Option value="4">已放款</Option>
-          <Option value="5">已回款</Option>
+          <Option value="5">已还款</Option>
         </Select>
       </Col>
       <Col span="4">
-        <Select v-model="queryStr.money" placeholder="请输入贷款金额" prefix="logo-yen" clearable="true">
+        <Select v-model="queryStr.money" placeholder="请输入贷款金额" prefix="logo-yen">
           <Option value="1">1万元</Option>
           <Option value="2">2万元</Option>
           <Option value="3">3万元</Option>
@@ -50,7 +50,7 @@
         </Select>
       </Col>
       <Col span="4">
-        <Select v-model="queryStr.month" placeholder="请输入贷款期限" prefix="md-calendar" clearable="true">
+        <Select v-model="queryStr.month" placeholder="请输入贷款期限" prefix="md-calendar">
           <Option value="1">1月</Option>
           <Option value="2">2月</Option>
           <Option value="3">3月</Option>
@@ -99,7 +99,7 @@
           </Button>
           <Button @click="goRefresh">
             <Icon type="md-refresh"></Icon>
-            重置
+            重置（务必点两次）
           </Button>
         </Button-group>
       </Col>
@@ -496,19 +496,20 @@ export default {
       })
       this.getLists(this.$store.state.queryStr, this.$store.state.pageCurrent, this.$store.state.pageSize)
     },
+    // 不知道为什么的BUG，重置必须点击两遍
     goRefresh () {
       this.queryStr = {
-        department_id: '',
-        bank_id: '',
-        type_id: '',
-        state: '',
-        money: '',
-        month: '',
-        name: '',
-        number: '',
-        phone: '',
-        business: ''
-      }
+      department_id: '',
+      bank_id: '',
+      type_id: '',
+      state: '',
+      money: '',
+      month: '',
+      name: '',
+      number: '',
+      phone: '',
+      business: ''
+    }
       this.pageCurrent = 1
       this.$store.commit('setQueryStr', {
         queryStr: {

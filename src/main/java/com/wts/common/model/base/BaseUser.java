@@ -40,6 +40,21 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 	}
 
 	/**
+	 * 用户名
+	 */
+	public M setLogin(java.lang.String login) {
+		set("login", login);
+		return (M)this;
+	}
+	
+	/**
+	 * 用户名
+	 */
+	public java.lang.String getLogin() {
+		return getStr("login");
+	}
+
+	/**
 	 * 用户密码
 	 */
 	public M setPassword(java.lang.String password) {
@@ -67,21 +82,6 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 	 */
 	public java.lang.Integer getState() {
 		return getInt("state");
-	}
-
-	/**
-	 * 用户名
-	 */
-	public M setLogin(java.lang.String login) {
-		set("login", login);
-		return (M)this;
-	}
-	
-	/**
-	 * 用户名
-	 */
-	public java.lang.String getLogin() {
-		return getStr("login");
 	}
 
 }
