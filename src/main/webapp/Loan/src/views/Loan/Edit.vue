@@ -123,6 +123,23 @@
           </Col>
         </Row>
         <Row>
+          <Col span="8">
+            &nbsp;<FormItem label="客户编号" prop="code">
+            <Input v-model="formValidate.code" placeholder="请输入8位客户编号" maxlength="8" type="number" clearable number/>
+          </FormItem>
+          </Col>
+          <Col span="8">
+            <FormItem label="开始日期" prop="startTime">
+              <Input v-model="formValidate.startTime" placeholder="请输入8位贷款开始日期" maxlength="8" type="number" clearable number/>
+            </FormItem>
+          </Col>
+          <Col span="8">
+            &nbsp;<FormItem label="结束日期" prop="endTime">
+            <Input v-model="formValidate.endTime" placeholder="请输入8位贷款终止日期" maxlength="8" type="number" clearable number/>
+          </FormItem>
+          </Col>
+        </Row>
+        <Row>
           <Col span="24">
             <FormItem label="备注信息" prop="remark">
               <Input v-model="formValidate.remark" type="textarea" :autosize="{minRows: 3,maxRows: 4}" placeholder="如有必要，请输入备注信息"></Input>
@@ -214,7 +231,10 @@ export default {
         business: '',
         address: '',
         project: '',
-        remark: ''
+        remark: '',
+        code: '',
+        startTime: '',
+        endTime: ''
       },
       ruleValidate: {
         name: [
@@ -348,6 +368,9 @@ export default {
         this.formValidate.base = res.data.base
         this.formValidate.remark = res.data.remark
         this.formValidate.time = res.data.time
+        this.formValidate.code = res.data.code
+        this.formValidate.startTime = res.data.startTime
+        this.formValidate.endTime = res.data.endTime
       }).catch(res => {
         this.$Notice.error({
           title: '服务器内部错误，无法获取数据!'

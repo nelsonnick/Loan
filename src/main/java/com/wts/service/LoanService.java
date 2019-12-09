@@ -50,7 +50,7 @@ public class LoanService {
     }
 
     public String getSelectSql() {
-        return "SELECT loan.id, loan.time, loan.money,loan.month,loan.base,loan.business,loan.address,loan.address,loan.project,loan.name,loan.number,loan.birth,loan.phone,loan.spouse,loan.phone2," +
+        return "SELECT loan.id, loan.time, loan.money,loan.month,loan.base,loan.business,loan.address,loan.address,loan.project,loan.name,loan.number,loan.birth,loan.phone,loan.spouse,loan.phone2,loan.code,loan.startTime,loan.endTime," +
                 "bank.name AS bank, type.name AS type, department.name AS department, " +
                 "CASE loan.sex WHEN '0' THEN '未知' WHEN '1' THEN '男' WHEN '2' THEN '女' ELSE '性别错误' END AS sex," +
                 "CASE loan.marriage WHEN '1' THEN '未婚' WHEN '2' THEN '已婚' WHEN '3' THEN '离异' WHEN '4' THEN '丧偶' ELSE '婚姻错误' END AS marriage," +
@@ -78,6 +78,9 @@ public class LoanService {
                 .set("address",form.get("address"))
                 .set("project",form.get("project"))
                 .set("remark",form.get("remark"))
+                .set("code",form.get("code"))
+                .set("startTime",form.get("startTime"))
+                .set("endTime",form.get("endTime"))
                 .set("sex", IDNumber.getSex(form.get("number").toString()))
                 .set("birth",IDNumber.getBirthDate(form.get("number").toString()));
         return loan;

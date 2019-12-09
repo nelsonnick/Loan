@@ -171,6 +171,15 @@
       <template slot-scope="{ row }" slot="phone2">
         {{row.phone2}}
       </template>
+      <template slot-scope="{ row }" slot="code">
+        {{row.code}}
+      </template>
+      <template slot-scope="{ row }" slot="startTime">
+        {{row.startTime}}
+      </template>
+      <template slot-scope="{ row }" slot="endTime">
+        {{row.endTime}}
+      </template>
       <template slot-scope="{ row, index }" slot="action" >
         <Button type="primary" size="small" style="margin-right: 5px" @click="goEdit(index)">修改</Button>
       </template>
@@ -358,6 +367,27 @@ export default {
         {
           title: '配偶电话',
           key: 'phone2',
+          tooltip: true,
+          resizable: true,
+          width: 180
+        },
+        {
+          title: '客户编号',
+          key: 'code',
+          tooltip: true,
+          resizable: true,
+          width: 180
+        },
+        {
+          title: '开始日期',
+          key: 'startTime',
+          tooltip: true,
+          resizable: true,
+          width: 180
+        },
+        {
+          title: '结束日期',
+          key: 'endTime',
           tooltip: true,
           resizable: true,
           width: 180
