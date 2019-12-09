@@ -46,7 +46,7 @@ export default {
       })
     })
     axios.get(API.getDepartment).then(res => {
-      localStorage.setItem("departmentList",res.data.toString());
+      localStorage.setItem('departmentList', res.data.toString())
     }).catch(res => {
       this.$Loading.error()
       this.$Notice.error({
@@ -54,7 +54,7 @@ export default {
       })
     })
     axios.get(API.getBank).then(res => {
-      localStorage.setItem("bankList",res.data.toString());
+      localStorage.setItem('bankList', res.data.toString())
     }).catch(res => {
       this.$Loading.error()
       this.$Notice.error({
@@ -62,7 +62,7 @@ export default {
       })
     })
     axios.get(API.getType).then(res => {
-      localStorage.setItem("typeList",res.data.toString());
+      localStorage.setItem('typeList', res.data.toString())
     }).catch(res => {
       this.$Loading.error()
       this.$Notice.error({

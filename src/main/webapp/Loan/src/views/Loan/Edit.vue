@@ -156,237 +156,237 @@
   </div>
 </template>
 <script>
-  import * as API from './API.js'
-  import axios from 'axios'
-  import IdentityCodeValid from '../../plugins/checkId'
-  export default {
-    data () {
-      const validateName = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error('请输入人员姓名'))
-        } else if (/^[\u4E00-\u9FA5]{2,8}$/.test(value)) {
+import * as API from './API.js'
+import axios from 'axios'
+import IdentityCodeValid from '../../plugins/checkId'
+export default {
+  data () {
+    const validateName = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('请输入人员姓名'))
+      } else if (/^[\u4E00-\u9FA5]{2,8}$/.test(value)) {
+        callback()
+      } else {
+        callback(new Error('人员姓名应为2-8个汉字'))
+      }
+    }
+    const validateNumber = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('请输入18位身份证号码'))
+      } else if (/^\d{18}$|^\d{17}(\d|X)$/.test(value)) {
+        var tip = IdentityCodeValid(value)
+        if (tip === '' || value === '000000000000000000') {
           callback()
         } else {
-          callback(new Error('人员姓名应为2-8个汉字'))
+          callback(new Error(tip))
         }
+      } else {
+        callback(new Error('身份证号码应为18位，如末尾的X需要大写'))
       }
-      const validateNumber = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error('请输入18位身份证号码'))
-        } else if (/^\d{18}$|^\d{17}(\d|X)$/.test(value)) {
-          var tip = IdentityCodeValid(value)
-          if (tip === '' || value === '000000000000000000') {
-            callback()
-          } else {
-            callback(new Error(tip))
-          }
-        } else {
-          callback(new Error('身份证号码应为18位，如末尾的X需要大写'))
-        }
+    }
+    const validatePhone = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('请输入11位手机号码'))
+      } else if (/^[1][0-9]{10}$/.test(value) || value === '00000000000') {
+        callback()
+      } else {
+        callback(new Error('手机号码应为以1开头的11位数字'))
       }
-      const validatePhone = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error('请输入11位手机号码'))
-        } else if (/^[1][0-9]{10}$/.test(value) || value === '00000000000') {
-          callback()
-        } else {
-          callback(new Error('手机号码应为以1开头的11位数字'))
-        }
-      }
-      return {
-        dis: false,
-        askDeleteModal: false,
-        formValidate: {
-          name: '',
-          number: '',
-          phone: '',
-          marriage: '1',
-          spouse: '',
-          phone2: '',
-          department_id: '1',
-          bank_id: '1',
-          type_id: '1',
-          state: '1',
-          money: 20,
-          month: 24,
-          base: 100,
-          time: '',
-          business: '',
-          address: '',
-          project: '',
-          remark: ''
-        },
-        ruleValidate: {
-          name: [
-            { required: true, validator: validateName, trigger: 'blur' }
-          ],
-          number: [
-            { required: true, validator: validateNumber, trigger: 'blur' }
-          ],
-          phone: [
-            { required: true, validator: validatePhone, trigger: 'blur' }
-          ],
-          business: [
-            { required: true, message: '公司名称为必填项' }
-          ],
-          address: [
-            { required: true, message: '经营场所为必填项' }
-          ],
-          project: [
-            { required: true, message: '经营项目为必填项' }
-          ],
-          marriage: [
-            { required: true }
-          ],
-          // department: [
-          //   { required: true }
-          // ],
-          // bank: [
-          //   { required: true }
-          // ],
-          // type: [
-          //   { required: true }
-          // ],
-          time: [
-            { required: true, message: '申请时间为必填项'  }
-          ],
-          money: [
-            { required: true, message: '贷款金额为必填项'  }
-          ],
-          month: [
-            { required: true, message: '贷款期限为必填项'  }
-          ],
-          base: [
-            { required: true, message: '贴息比例为必填项'  }
-          ]
-        }
-      }
-    },
-    created: function () {
-      this.departmentList = this.evil('(' + localStorage.getItem("departmentList") + ')')
-      this.bankList = this.evil('(' + localStorage.getItem("bankList") + ')')
-      this.typeList = this.evil('(' + localStorage.getItem("typeList") + ')')
-      this.fetchData(this.$route.params.id)
-    },
-    watch: {
-      // 如果路由有变化，会再次执行该方法
-      '$route': 'fetchData'
-    },
-    methods: {
-      // 一个变量指向Function，防止有些前端编译工具报错
-      evil (fn) {
-        let Fn = Function
-        return new Fn('return ' + fn)()
+    }
+    return {
+      dis: false,
+      askDeleteModal: false,
+      formValidate: {
+        name: '',
+        number: '',
+        phone: '',
+        marriage: '1',
+        spouse: '',
+        phone2: '',
+        department_id: '1',
+        bank_id: '1',
+        type_id: '1',
+        state: '1',
+        money: 20,
+        month: 24,
+        base: 100,
+        time: '',
+        business: '',
+        address: '',
+        project: '',
+        remark: ''
       },
-      goSave (name) {
-        this.$refs[name].validate((valid) => {
-          if (valid) {
-            this.dis = true
-            this.$Loading.start()
-            axios.get(API.edit, {
-              params: {
-                id: this.$route.params.id,
-                form: this.formValidate
-              }
-            }).then(res => {
-              if (res.data === 'OK') {
-                this.$Loading.finish()
-                this.$Message.success('修改成功!')
-                this.$Notice.success({
-                  title: '操作完成!',
-                  desc: '贷款人员：' + this.formValidate.name + '已修改！'
-                })
-                setTimeout(() => {
-                  this.$router.push({ path: '/Loan' })
-                  this.dis = false
-                  this.$refs[name].resetFields()
-                }, 1000)
-              } else {
+      ruleValidate: {
+        name: [
+          { required: true, validator: validateName, trigger: 'blur' }
+        ],
+        number: [
+          { required: true, validator: validateNumber, trigger: 'blur' }
+        ],
+        phone: [
+          { required: true, validator: validatePhone, trigger: 'blur' }
+        ],
+        business: [
+          { required: true, message: '公司名称为必填项' }
+        ],
+        address: [
+          { required: true, message: '经营场所为必填项' }
+        ],
+        project: [
+          { required: true, message: '经营项目为必填项' }
+        ],
+        marriage: [
+          { required: true }
+        ],
+        // department: [
+        //   { required: true }
+        // ],
+        // bank: [
+        //   { required: true }
+        // ],
+        // type: [
+        //   { required: true }
+        // ],
+        time: [
+          { required: true, message: '申请时间为必填项' }
+        ],
+        money: [
+          { required: true, message: '贷款金额为必填项' }
+        ],
+        month: [
+          { required: true, message: '贷款期限为必填项' }
+        ],
+        base: [
+          { required: true, message: '贴息比例为必填项'  }
+        ]
+      }
+    }
+  },
+  created: function () {
+    this.departmentList = this.evil('(' + localStorage.getItem("departmentList") + ')')
+    this.bankList = this.evil('(' + localStorage.getItem("bankList") + ')')
+    this.typeList = this.evil('(' + localStorage.getItem("typeList") + ')')
+    this.fetchData(this.$route.params.id)
+  },
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    '$route': 'fetchData'
+  },
+  methods: {
+    // 一个变量指向Function，防止有些前端编译工具报错
+    evil (fn) {
+      let Fn = Function
+      return new Fn('return ' + fn)()
+    },
+    goSave (name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.dis = true
+          this.$Loading.start()
+          axios.get(API.edit, {
+            params: {
+              id: this.$route.params.id,
+              form: this.formValidate
+            }
+          }).then(res => {
+            if (res.data === 'OK') {
+              this.$Loading.finish()
+              this.$Message.success('修改成功!')
+              this.$Notice.success({
+                title: '操作完成!',
+                desc: '贷款人员：' + this.formValidate.name + '已修改！'
+              })
+              setTimeout(() => {
+                this.$router.push({ path: '/Loan' })
                 this.dis = false
-                this.$Loading.error()
-                this.$Notice.error({
-                  title: res.data
-                })
-              }
-            }).catch(res => {
+                this.$refs[name].resetFields()
+              }, 1000)
+            } else {
               this.dis = false
               this.$Loading.error()
               this.$Notice.error({
-                title: '服务器内部错误，无法修改贷款信息!'
+                title: res.data
               })
-            })
-          } else {
-            this.$Message.error('请核实填写的信息!')
-          }
-        })
-      },
-      goReset (name) {
-        this.fetchData(this.$route.params.id)
-      },
-      goBack () {
-        this.$router.push({ path: '/Loan' })
-      },
-      fetchData (id) {
-        axios.get(API.get,
-          { params: { id: id } }
-        ).then(res => {
-          this.formValidate.name = res.data.name
-          this.formValidate.number = res.data.number
-          this.formValidate.phone = res.data.phone
-          this.formValidate.marriage = res.data.marriage.toString()
-          this.formValidate.spouse = res.data.spouse
-          this.formValidate.phone2 = res.data.phone2
-          this.formValidate.department_id = res.data.department_id.toString()
-          this.formValidate.bank_id = res.data.bank_id.toString()
-          this.formValidate.type_id = res.data.type_id.toString()
-          this.formValidate.business = res.data.business
-          this.formValidate.address = res.data.address
-          this.formValidate.state = res.data.state.toString()
-          this.formValidate.project = res.data.project
-          this.formValidate.money = res.data.money
-          this.formValidate.month = res.data.month
-          this.formValidate.base = res.data.base
-          this.formValidate.remark = res.data.remark
-          this.formValidate.time = res.data.time
-        }).catch(res => {
-          this.$Notice.error({
-            title: '服务器内部错误，无法获取数据!'
-          })
-        })
-      },
-      goCancel(){
-        this.askDeleteModal = false
-      },
-      goDelete() {
-        this.$Loading.start()
-        axios.get(API.del, {
-          params: {
-            id: this.$route.params.id
-          }
-        }).then(res => {
-          if (res.data === 'OK') {
-            this.$Loading.finish()
-            this.$Message.success('删除成功!')
-            setTimeout(() => {
-              this.$router.push({ path: '/Loan' })
-              this.dis = false
-              this.$refs[name].resetFields()
-            }, 1000)
-          } else {
+            }
+          }).catch(res => {
+            this.dis = false
             this.$Loading.error()
             this.$Notice.error({
-              title: res.data
+              title: '服务器内部错误，无法修改贷款信息!'
             })
-          }
-        }).catch(res => {
+          })
+        } else {
+          this.$Message.error('请核实填写的信息!')
+        }
+      })
+    },
+    goReset (name) {
+      this.fetchData(this.$route.params.id)
+    },
+    goBack () {
+      this.$router.push({ path: '/Loan' })
+    },
+    fetchData (id) {
+      axios.get(API.get,
+        { params: { id: id } }
+      ).then(res => {
+        this.formValidate.name = res.data.name
+        this.formValidate.number = res.data.number
+        this.formValidate.phone = res.data.phone
+        this.formValidate.marriage = res.data.marriage.toString()
+        this.formValidate.spouse = res.data.spouse
+        this.formValidate.phone2 = res.data.phone2
+        this.formValidate.department_id = res.data.department_id.toString()
+        this.formValidate.bank_id = res.data.bank_id.toString()
+        this.formValidate.type_id = res.data.type_id.toString()
+        this.formValidate.business = res.data.business
+        this.formValidate.address = res.data.address
+        this.formValidate.state = res.data.state.toString()
+        this.formValidate.project = res.data.project
+        this.formValidate.money = res.data.money
+        this.formValidate.month = res.data.month
+        this.formValidate.base = res.data.base
+        this.formValidate.remark = res.data.remark
+        this.formValidate.time = res.data.time
+      }).catch(res => {
+        this.$Notice.error({
+          title: '服务器内部错误，无法获取数据!'
+        })
+      })
+    },
+    goCancel(){
+      this.askDeleteModal = false
+    },
+    goDelete() {
+      this.$Loading.start()
+      axios.get(API.del, {
+        params: {
+          id: this.$route.params.id
+        }
+      }).then(res => {
+        if (res.data === 'OK') {
+          this.$Loading.finish()
+          this.$Message.success('删除成功!')
+          setTimeout(() => {
+            this.$router.push({ path: '/Loan' })
+            this.dis = false
+            this.$refs[name].resetFields()
+          }, 1000)
+        } else {
           this.$Loading.error()
           this.$Notice.error({
-            title: '服务器内部错误，无法删除!'
+            title: res.data
           })
+        }
+      }).catch(res => {
+        this.$Loading.error()
+        this.$Notice.error({
+          title: '服务器内部错误，无法删除!'
         })
-      }
+      })
     }
   }
+}
 </script>
 
 <style scoped>

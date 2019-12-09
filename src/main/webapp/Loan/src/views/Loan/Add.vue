@@ -240,24 +240,24 @@ export default {
         //   { required: true }
         // ],
         time: [
-          { required: true, message: '申请时间为必填项'  }
+          { required: true, message: '申请时间为必填项' }
         ],
         money: [
-          { required: true, message: '贷款金额为必填项'  }
+          { required: true, message: '贷款金额为必填项' }
         ],
         month: [
-          { required: true, message: '贷款期限为必填项'  }
+          { required: true, message: '贷款期限为必填项' }
         ],
         base: [
-          { required: true, message: '贴息比例为必填项'  }
+          { required: true, message: '贴息比例为必填项' }
         ]
       }
     }
   },
   created: function () {
-    this.departmentList = this.evil('(' + localStorage.getItem("departmentList") + ')')
-    this.bankList = this.evil('(' + localStorage.getItem("bankList") + ')')
-    this.typeList = this.evil('(' + localStorage.getItem("typeList") + ')')
+    this.departmentList = this.evil('(' + localStorage.getItem('departmentList') + ')')
+    this.bankList = this.evil('(' + localStorage.getItem('bankList') + ')')
+    this.typeList = this.evil('(' + localStorage.getItem('typeList') + ')')
     this.formValidate.time = this.getYearMonthDate()
   },
   methods: {
@@ -313,20 +313,21 @@ export default {
     goBack () {
       this.$router.push({ path: '/Loan' })
     },
-    getYearMonthDate(){
-      var myDate = new Date();
-      var y = myDate.getFullYear() + '';
-      var m = myDate.getMonth() + 1
-      var d = myDate.getDate();
-      if (m< 10){
-        var n = '0' + m + '';
-      }else{
-        var n = m + ''
+    getYearMonthDate () {
+      let myDate = new Date()
+      let y = myDate.getFullYear() + ''
+      let m = myDate.getMonth() + 1
+      let d = myDate.getDate()
+      let n, t
+      if (m< 10) {
+        n = '0' + m + ''
+      } else {
+        n = m + ''
       }
-      if (d<10){
-        var t = '0' + d + '';
-      }else{
-        var t = d + ''
+      if (d<10) {
+        t = '0' + d + ''
+      } else {
+        t = d + ''
       }
       return y + n + t + ''
     }

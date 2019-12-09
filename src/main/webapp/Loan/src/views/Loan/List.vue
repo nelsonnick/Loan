@@ -386,16 +386,16 @@ export default {
                   }
                 }
               }, '修改')
-            ]);
+            ])
           }
         }
       ]
     }
   },
   created: function () {
-    this.departmentList = this.evil('(' + localStorage.getItem("departmentList") + ')')
-    this.bankList = this.evil('(' + localStorage.getItem("bankList") + ')')
-    this.typeList = this.evil('(' + localStorage.getItem("typeList") + ')')
+    this.departmentList = this.evil('(' + localStorage.getItem('departmentList') + ')')
+    this.bankList = this.evil('(' + localStorage.getItem('bankList') + ')')
+    this.typeList = this.evil('(' + localStorage.getItem('typeList') + ')')
     this.getLists(this.$store.state.queryStr, this.$store.state.pageCurrent, this.$store.state.pageSize)
   },
   methods: {
@@ -478,7 +478,7 @@ export default {
         number: '',
         phone: '',
         business: ''
-      },
+      }
       this.pageCurrent = 1
       this.$store.commit('setQueryStr', {
         queryStr: {
