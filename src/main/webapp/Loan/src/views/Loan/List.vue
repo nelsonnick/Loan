@@ -97,9 +97,9 @@
             <Icon type="md-search"></Icon>
             搜索
           </Button>
-          <Button @click="goRefresh">
+          <Button @click="goRefreshs">
             <Icon type="md-refresh"></Icon>
-            重置（务必点两次）
+            清空
           </Button>
         </Button-group>
       </Col>
@@ -529,6 +529,10 @@ export default {
         pageCurrent: 1
       })
       this.getLists(this.$store.state.queryStr, this.$store.state.pageCurrent, this.$store.state.pageSize)
+    },
+    goRefreshs () {
+      this.goRefresh()
+      this.goRefresh()
     },
     onRowDblclick (row, index) {
       this.$Modal.info({
