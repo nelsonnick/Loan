@@ -80,10 +80,14 @@ public class LoanService {
                 .set("project",form.get("project"))
                 .set("remark",form.get("remark"))
                 .set("code",form.get("code"))
-                .set("startTime",form.get("startTime"))
-                .set("endTime",form.get("endTime"))
                 .set("sex", IDNumber.getSex(form.get("number").toString()))
                 .set("birth",IDNumber.getBirthDate(form.get("number").toString()));
+        if (!form.get("startTime").equals("")){
+            loan.set("startTime",form.get("startTime"));
+        }
+        if (!form.get("endTime").equals("")){
+            loan.set("endTime",form.get("endTime"));
+        }
         return loan;
     }
 
