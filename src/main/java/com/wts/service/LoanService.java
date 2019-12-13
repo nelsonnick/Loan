@@ -84,9 +84,13 @@ public class LoanService {
                 .set("birth",IDNumber.getBirthDate(form.get("number").toString()));
         if (!form.get("startTime").equals("")){
             loan.set("startTime",form.get("startTime"));
+        } else {
+            loan.set("startTime","");
         }
-        if (!form.get("endTime").equals("")){
+        if (!form.get("endTime").equals("")||!form.get("endTime").equals("null")||form.get("endTime")!=null){
             loan.set("endTime",form.get("endTime"));
+        } else {
+            loan.set("endTime","");
         }
         return loan;
     }
