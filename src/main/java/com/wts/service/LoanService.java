@@ -87,7 +87,7 @@ public class LoanService {
         } else {
             loan.set("startTime","");
         }
-        if (!form.get("endTime").equals("")||!form.get("endTime").equals("null")||form.get("endTime")!=null){
+        if (!form.get("endTime").equals("")){
             loan.set("endTime",form.get("endTime"));
         } else {
             loan.set("endTime","");

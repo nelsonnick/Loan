@@ -81,8 +81,29 @@ public class LoanController extends Controller {
                         .set("before",loan.toJson())
                         .set("after",loanService.getLoanByFrom(get("form")).toJson())
                         .set("time",new Date()).save();
-                loan = loanService.getLoanByFrom(get("form"));
-                loan.set("id",getParaToInt("id")).update();
+                Loan l = loanService.getLoanByFrom(get("form"));
+                loan.set("department_id",l.get("department_id"))
+                        .set("bank_id",l.get("bank_id"))
+                        .set("type_id",l.get("type_id"))
+                        .set("name",l.get("name"))
+                        .set("number",l.get("number"))
+                        .set("phone",l.get("phone"))
+                        .set("marriage",l.get("marriage"))
+                        .set("spouse",l.get("spouse"))
+                        .set("phone2",l.get("phone2"))
+                        .set("state",l.get("state"))
+                        .set("money",l.get("money"))
+                        .set("month",l.get("month"))
+                        .set("base",l.get("base"))
+                        .set("time",l.get("time"))
+                        .set("business",l.get("business"))
+                        .set("address",l.get("address"))
+                        .set("project",l.get("project"))
+                        .set("remark",l.get("remark"))
+                        .set("code",l.get("code"))
+                        .set("sex",l.get("sex"))
+                        .set("birth",l.get("birth"))
+                        .update();
                 renderText("OK");
             }
         }
