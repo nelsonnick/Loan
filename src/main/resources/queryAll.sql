@@ -12,12 +12,15 @@ SELECT
 	loan.money AS '贷款金额',
 	loan.month AS '贷款期限',
 	loan.base AS '贴息比例',
-    CASE loan.state WHEN '0' THEN '未处理' WHEN '1' THEN '被退回' WHEN '2' THEN '已审批' WHEN '3' THEN '已放款' WHEN '4' THEN '已回款' ELSE '状态错误' END AS '贷款状态',
+    CASE loan.state WHEN '1' THEN '未处理' WHEN '2' THEN '被退回' WHEN '3' THEN '已审批' WHEN '4' THEN '已放款' WHEN '5' THEN '已回款' ELSE '状态错误' END AS '贷款状态',
     CASE loan.marriage WHEN '1' THEN '未婚' WHEN '2' THEN '已婚' WHEN '3' THEN '离异' WHEN '4' THEN '丧偶' ELSE '婚姻错误' END AS '婚姻状态',
 	loan.spouse AS '配偶姓名',
 	loan.phone2 AS '配偶电话',
 	loan.time AS '申请日期',
 	bank.name AS '放款银行',
 	type.name AS '申请类型',
+	loan.code AS '银行编号',
+	loan.startTime AS '开始日期',
+	loan.endTime AS '终止日期',
 	loan.remark AS '备注'
 FROM loan LEFT JOIN department ON loan.department_id = department.id LEFT JOIN bank ON loan.bank_id = bank.id LEFT JOIN type ON loan.type_id = type.id
