@@ -52,8 +52,32 @@ public class LoanController extends Controller {
         if (!IDNumber.availableIDNumber(form.get("number").toString())){
             renderText("身份证号码错误，请核实");
         }else{
-            Loan loan = loanService.getLoanByFrom(get("form"));
-            loan.save();
+            Loan l = loanService.getLoanByFrom(get("form"));
+            Loan loan = new Loan();
+            loan.set("department_id",l.get("department_id"))
+                    .set("bank_id",l.get("bank_id"))
+                    .set("type_id",l.get("type_id"))
+                    .set("name",l.get("name"))
+                    .set("number",l.get("number"))
+                    .set("phone",l.get("phone"))
+                    .set("marriage",l.get("marriage"))
+                    .set("spouse",l.get("spouse"))
+                    .set("phone2",l.get("phone2"))
+                    .set("state",l.get("state"))
+                    .set("money",l.get("money"))
+                    .set("month",l.get("month"))
+                    .set("base",l.get("base"))
+                    .set("time",l.get("time"))
+                    .set("business",l.get("business"))
+                    .set("address",l.get("address"))
+                    .set("project",l.get("project"))
+                    .set("remark",l.get("remark"))
+                    .set("code",l.get("code"))
+                    .set("sex",l.get("sex"))
+                    .set("birth",l.get("birth"))
+                    .set("startTime",l.get("startTime"))
+                    .set("endTime",l.get("endTime"))
+                    .save();
             Change change = new Change();
             change.set("loan_id",loan.getId())
                     .set("user_id",((User) getSessionAttr("user")).getId())
@@ -103,6 +127,8 @@ public class LoanController extends Controller {
                         .set("code",l.get("code"))
                         .set("sex",l.get("sex"))
                         .set("birth",l.get("birth"))
+                        .set("startTime",l.get("startTime"))
+                        .set("endTime",l.get("endTime"))
                         .update();
                 renderText("OK");
             }
